@@ -27,9 +27,9 @@ export const searchVideos = async (query) => {
   throw new Error("No API keys left to try");
 };
 
-export const suggest = (term) => {
+export const suggest = async (term) => {
   const GOOGLE_AC_URL = `https://clients1.google.com/complete/search`;
-  return axios({
+  const res = await axios({
     // A YT undocumented API for auto suggest search queries
     url: GOOGLE_AC_URL,
     adapter: jsonpAdapter,
@@ -39,13 +39,12 @@ export const suggest = (term) => {
       ds: "yt",
       q: term,
     },
-  }).then((res) => {
-    console.log("jsonp results >> ", res);
-    if (res.status !== 200) {
-      throw Error("Suggest API not 200!");
-    }
-    return res.data[1].map((item) => item[0]);
   });
+  console.log("jsonp results >> ", res);
+  if (res.status !== 200) {
+    throw Error("Suggest API not 200!");
+  }
+  return res.data[1].map((item) => item[0]);
 };
 
 export const getVideoInfo = async (videoId) => {

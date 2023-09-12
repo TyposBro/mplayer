@@ -1,5 +1,4 @@
 import { css } from "styled-components";
-import { breakpoints } from "./utils";
 
 export const reset = css`
   body {
@@ -25,10 +24,6 @@ export const reset = css`
     &::-webkit-scrollbar {
       display: none;
     }
-
-    /* @media only screen and (max-width: 350px) {
-      font-size: 50%; //* 1rem = 8px
-    } */
   }
   #root {
     width: 100dvw;
